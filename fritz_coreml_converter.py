@@ -1,6 +1,6 @@
 import coremltools
 from coremltools.converters.keras._keras2_converter import * 
-from coremltools.converters.keras._keras2_converter import _KERAS_LAYER_REGISTRY, _KERAS_SKIP_LAYERS
+from coremltools.converters.keras._keras2_converter import _KERAS_LAYER_REGISTRY
 from coremltools.converters.keras import _topology2
 from coremltools.models.neural_network import NeuralNetworkBuilder as _NeuralNetworkBuilder
 from coremltools.proto import FeatureTypes_pb2 as _FeatureTypes_pb2
@@ -14,7 +14,9 @@ import PIL.Image
 from coremltools.proto import FeatureTypes_pb2 as ft
 
 _IMAGE_SUFFIX = '_image'
-
+_KERAS_SKIP_LAYERS = [
+    _keras.layers.core.Dropout,
+]
 
 class FritzCoremlConverter(object):
     """A class to convert keras models to coreml.
