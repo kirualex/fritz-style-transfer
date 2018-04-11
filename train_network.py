@@ -37,11 +37,11 @@ if __name__ == '__main__':
         help='An file to save the trained network weights to.'
     )
     parser.add_argument(
-        '--img-height', default=512, type=int,
+        '--img-height', default=720, type=int,
         help='The height of training images.'
     )
     parser.add_argument(
-        '--img-width', default=512, type=int,
+        '--img-width', default=720, type=int,
         help='The width of training images.'
     )
     parser.add_argument(
