@@ -25,11 +25,11 @@ if __name__ == '__main__':
         help='A CoreML output file to save to'
     )
     parser.add_argument(
-        '--img-height', default=256, type=int,
+        '--img-height', default=512, type=int,
         help='The height of training images.'
     )
     parser.add_argument(
-        '--img-width', default=256, type=int,
+        '--img-width', default=512, type=int,
         help='The width of training images.'
     )
 
@@ -51,8 +51,8 @@ if __name__ == '__main__':
     mlmodel = fritz_converter.convert_keras(
         transfer_net,
         custom_layers=custom_layers,
-        image_input_names=['input1'],
-        image_output_names=['output1'],
+        image_input_names=['inputImage'],
+        image_output_names=['outputImage'],
         deprocessing_args={
             'is_bgr': False,
             'image_scale': 127.5,

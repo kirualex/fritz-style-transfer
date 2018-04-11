@@ -29,11 +29,11 @@ if __name__ == '__main__':
         help='Weights from a trained Style Transfer Network.'
     )
     parser.add_argument(
-        '--img-height', default=256, type=int,
+        '--img-height', default=512, type=int,
         help='The height of training images.'
     )
     parser.add_argument(
-        '--img-width', default=256, type=int,
+        '--img-width', default=512, type=int,
         help='The width of training images.'
     )
 
