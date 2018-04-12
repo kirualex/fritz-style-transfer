@@ -47,7 +47,7 @@ class CocoPreprocessor(object):
             num_threads - the number of threads to use. Default 1.
         """
         img_height, img_width = image_size
-        img_list = cls._get_image_filenames(input_dir, num_images)
+        img_list = cls._get_image_filenames(input_dir, num_images - 1)
 
         # Remove the h5 file if it exists
         try:
@@ -193,11 +193,11 @@ if __name__ == '__main__':
               'images from the COCO training data set.')
     )
     parser.add_argument(
-        '--img-height', default=256, type=int,
+        '--img-height', default=720, type=int,
         help='The height of training images.'
     )
     parser.add_argument(
-        '--img-width', default=256, type=int,
+        '--img-width', default=720, type=int,
         help='The width of training images.'
     )
     parser.add_argument(
