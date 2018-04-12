@@ -73,8 +73,9 @@ python train_network.py \
 --img-width 640 \
 --style-images ~/Documents/data/style.jpg \
 --weights-checkpoint ~/Documents/data/models/checkpoint.h5 \
---content-weight 4.0 \
---style-weight 6.0 \
+--checkpoint-interval 100 \
+--content-weight 5.0 \
+--style-weight 5.0 \
 --learning-rate 0.001 \
 --batch-size 1 \
 --num-iterations 20000 \
@@ -114,7 +115,6 @@ python convert_to_coreml.py \
 ### Uploads
 ```
 scp ~/Development/Data/style.jpg monoqle@monoqle-beast.local:~/Documents/data/
-
 ```
 
 ### Downloads
