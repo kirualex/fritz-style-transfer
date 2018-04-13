@@ -74,11 +74,12 @@ python train_network.py \
 --style-images ~/Documents/data/style.jpg \
 --weights-checkpoint ~/Documents/data/models/checkpoint.h5 \
 --checkpoint-interval 100 \
---content-weight 5.0 \
---style-weight 5.0 \
---learning-rate 0.001 \
+--content-weight 2 \
+--style-weight 8 \
+--total-variation-weight 1e-4 \
+--learning-rate 1e-3 \
 --batch-size 1 \
---num-iterations 20000 \
+--num-iterations 10000 \
 --fine-tune
 ```
 
