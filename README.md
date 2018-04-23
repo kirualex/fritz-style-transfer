@@ -1,4 +1,4 @@
-# Fritz Style
+# keras-fns
 
 
 ### Create dataset (needed once)
@@ -16,7 +16,7 @@ python create_training_dataset.py \
 ```
 python train_network.py \
 --training-image-dset ~/Documents/data/datasets/fritz_dataset.h5 \
---style-images ~/Documents/data/images/styles/filter_galaxy.jpg \
+--style-images ~/Documents/data/images/styles/filter_outrun.jpg \
 --weights-checkpoint ~/Documents/data/models/fritz_checkpoint.h5 \
 --img-width 256 \
 --checkpoint-interval 250 \
@@ -25,7 +25,7 @@ python train_network.py \
 --total-variation-weight 1e-4 \
 --learning-rate 1e-3 \
 --batch-size 1 \
---log-interval 10 \
+--log-interval 5 \
 --num-iterations 10000 \
 --fine-tune
 ```
