@@ -18,14 +18,13 @@ python train_network.py \
 --training-image-dset ~/Documents/data/datasets/fritz_dataset.h5 \
 --style-images ~/Documents/data/images/styles/filter_outrun.jpg \
 --weights-checkpoint ~/Documents/data/models/fritz_checkpoint.h5 \
---img-width 256 \
+--img-width 480 \
 --checkpoint-interval 250 \
---content-weight 2 \
---style-weight 8 \
---total-variation-weight 1e-4 \
+--content-weight 1 \
+--style-weight 5 \
 --learning-rate 1e-3 \
 --batch-size 1 \
---log-interval 5 \
+--log-interval 2 \
 --num-iterations 10000 \
 --fine-tune
 ```
