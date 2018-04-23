@@ -1,73 +1,52 @@
-# fritz-style-transfer
-Code for training artistic style transfer models with Keras and converting them to Core ML.
+# Fritz Style
 
-# Preprocessing Training Data
-The training data comes from the [COCO Training data set](http://cocodataset.org/). It consists of ~80,000 images and labels, although the labels arent used here.
 
-the `create_training_dataset.py` script will download and unzip this data then process images to create an h5 dataset used by the style transfer network trainer. You can run this with the command below. Note the first time you run this you will need to download and unzip 13GB worth of data and it can take a while. The command only processes the first 10 images to make sure things are working, but you can modify `--num-images` to process more.
+### Create dataset (needed once)
 
 ```
 python create_training_dataset.py \
---output data/training_images.h5 \
---coco-image-dir data/ \
---img-height 256 \
+--coco-image-dir ~/Documents/data/ \
+--output ~/Documents/data/datasets/fritz_dataset.h5 \
 --img-width 256 \
---threads 1 \
---num-images 10
+--num-images 20000
 ```
 
-Note that if you have already downloaded and extracted a set of images to use for training, that directory needs to be called `train2014/` and you need to point `--coco-image-dir` to the parent directory that contains that folder.
-
-# Training a Style Transfer Model
-To train the model from scratch for 100 iterations:
+### Train
 
 ```
 python train_network.py \
---training-image-dset data/training_images.h5 \
---style-images data/starry-night.jpg \
---weights-checkpoint data/starry_night_keras_weights.h5 \
---img-height 256 \
+--training-image-dset ~/Documents/data/datasets/fritz_dataset.h5 \
+--style-images ~/Documents/data/images/styles/filter_galaxy.jpg \
+--weights-checkpoint ~/Documents/data/models/fritz_checkpoint.h5 \
 --img-width 256 \
---log-interval 1 \
---num-iterations 10
-```
-
-If everything looks good, we can pick up where we left off and keep training the same model.
-
-```
-python train_network.py \
---training-image-dset data/training_images.h5 \
---style-images data/starry-night.jpg \
---weights-checkpoint data/starry_night_keras_weights.h5 \
---img-height 256 \
---img-width 256 \
---num-iterations 100 \
+--checkpoint-interval 250 \
+--content-weight 2 \
+--style-weight 8 \
+--total-variation-weight 1e-4 \
+--learning-rate 1e-3 \
+--batch-size 1 \
+--log-interval 10 \
+--num-iterations 10000 \
 --fine-tune
 ```
 
-# Stylizing Images
-To stylize an image with a trained model you can run:
+### Stylize test
 
 ```
 python stylize_image.py \
---input-image data/test.jpg \
---output-image data/stylized_test.jpg \
---weights-checkpoint data/starry_night_keras_weights.h5
+--weights-checkpoint ~/Documents/data/models/fritz_checkpoint.h5 \
+--input-image ~/Documents/data/images/test.jpg \
+--output-image ~/Documents/data/images/stylized-test.jpg \
+--img-height 720 \
+--img-width 720 
 ```
 
-
-# Convert to Core ML
-Use the converter script to convert to Core ML.
-
-This converter is a slight modification of Apple's keras converter that allows
-the user to define custom conversions between Keras layers and core ml layers. This allows us to convert the Instance Normalization and Deprocessing layers.
+### Convert to CoreML
 
 ```
 python convert_to_coreml.py \
---weights-checkpoint data/starry_night_keras_weights.h5 \
---coreml-model data/starry_night.mlmodel
+--weights-checkpoint ~/Documents/data/models/fritz_checkpoint.h5 \
+--coreml-model ~/Documents/data/models/model.mlmodel \
+--img-height 720 \
+--img-width 720 
 ```
-
-# TODO
-* Clean up directory structure
-* Clean up Core ML converter code
