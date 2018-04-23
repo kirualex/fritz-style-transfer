@@ -18,7 +18,7 @@ python train_network.py \
 --training-image-dset ~/Documents/data/datasets/fritz_dataset.h5 \
 --style-images ~/Documents/data/images/styles/filter_outrun.jpg \
 --weights-checkpoint ~/Documents/data/models/fritz_checkpoint.h5 \
---img-width 480 \
+--img-width 256 \
 --checkpoint-interval 250 \
 --content-weight 1 \
 --style-weight 5 \
