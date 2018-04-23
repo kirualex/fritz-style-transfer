@@ -15,7 +15,6 @@ logger = logging.getLogger('trainer')
 class Trainer(object):
     """A style transfer model trainer."""
     _log_statement = 'iteration: [{iteration}/{num_iterations}] style_loss: {style_loss} content_loss: {content_loss} total_loss: {total_loss}'
-'''
 
     def __init__(self, transfer_net):
         """Initialize the trainer.
