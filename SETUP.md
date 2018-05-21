@@ -39,6 +39,15 @@ sudo apt-get install python-pip
 sudo pip install virtualenv
 ```
 
+### Install Torch
+```
+cd ~
+git clone https://github.com/torch/distro.git ~/torch --recursive
+cd ~/torch; bash install-deps;
+./install.sh
+source ~/.bashrc
+```
+
 ### Install the actual ML library
 ```
 git clone https://github.com/kirualex/fritz-style-transfer
