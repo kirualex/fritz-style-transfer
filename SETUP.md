@@ -1,42 +1,45 @@
 
 # Install
 
+OS: Ubuntu 16.04 x86_64
+
 ### Connect
 
 `ssh monoqle@monoqle-beast.local`
 
 ### Install Cuda 8.0 :
-More info here : `https://gist.github.com/zhanwenchen/e520767a409325d9961072f666815bb8`
+
+Uninstall old version CUDA Toolkit 
 ```
-cd ~/Downloads
-sudo ./cuda_8.0.61_375.26_linux.run
-sudo ./cuda-linux64-rel-8.0.61-21551265.run
-sudo ./cuda-samples-linux-8.0.61-21551265.run
-sudo bash -c "echo /usr/local/cuda/lib64/ > /etc/ld.so.conf.d/cuda.conf"
-sudo ldconfig
+sudo apt-get purge cuda
+sudo apt-get purge libcudnn6
+sudo apt-get purge libcudnn6-dev
 ```
 
-### Add `/usr/local/cuda/bin` to $PATH, then test install :
+Install CUDA Toolkit 9.0 and cuDNN 7.0
 ```
-cd /usr/local/cuda-8.0/samples
-sudo make
-...
-cd /usr/local/cuda/samples/bin/x86_64/linux/release
-./deviceQuery
+wget http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/cuda-repo-ubuntu1604_9.0.176-1_amd64.deb
+wget http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1604/x86_64/libcudnn7_7.0.5.15-1+cuda9.0_amd64.deb
+wget http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1604/x86_64/libcudnn7-dev_7.0.5.15-1+cuda9.0_amd64.deb
+wget http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1604/x86_64/libnccl2_2.1.4-1+cuda9.0_amd64.deb
+wget http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1604/x86_64/libnccl-dev_2.1.4-1+cuda9.0_amd64.deb
+sudo dpkg -i cuda-repo-ubuntu1604_9.0.176-1_amd64.deb
+sudo dpkg -i libcudnn7_7.0.5.15-1+cuda9.0_amd64.deb
+sudo dpkg -i libcudnn7-dev_7.0.5.15-1+cuda9.0_amd64.deb
+sudo dpkg -i libnccl2_2.1.4-1+cuda9.0_amd64.deb
+sudo dpkg -i libnccl-dev_2.1.4-1+cuda9.0_amd64.deb
+sudo apt-get update
+sudo apt-get install cuda=9.0.176-1
+sudo apt-get install libcudnn7-dev
+sudo apt-get install libnccl-dev
 ```
 
-### Install Cudnn 5.1:
-(The tgz installer should be at `/usr/local`, else DL it again there)
-```
-sudo cp ~/Downloads/cudnn-8.0-linux-x64-v5.1.tgz /usr/local
-cd /usr/local
-sudo tar -xvzf cudnn-8.0-linux-x64-v5.1.tgz
-```
+Reboot the system to load the NVIDIA drivers
 
-### Install Git, Pip, Virtualenv
+### Setup PATH :
 ```
-sudo apt-get install python-pip
-sudo pip install virtualenv
+export PATH=/usr/local/cuda-9.0/bin${PATH:+:${PATH}}
+export LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 ```
 
 ### Install Torch
